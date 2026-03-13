@@ -1962,19 +1962,17 @@ ${ctx}
 
 Respondé siempre en base al contexto del atleta. Sé específico con su rutina y datos cuando sea relevante. Usá emojis con moderación. Respuestas concisas pero impactantes — máximo 3-4 párrafos. No inventes datos que no tenés.`;
   try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
+    const res=await fetch('/api/chat',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:600,
         system:systemPrompt,
         messages:chatHistory.slice(-10)
       })
     });
     const data=await res.json();
     hideTyping();
-    const reply=data.content&&data.content[0]?data.content[0].text:'Lo siento, no pude procesar tu mensaje. ¡Intentá de nuevo!';
+    const reply=data.reply||data.error||'Lo siento, no pude procesar tu mensaje. ¡Intentá de nuevo!';
     addCoachMsg(reply);
   }catch(e){
     hideTyping();
