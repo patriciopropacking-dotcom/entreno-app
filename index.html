@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -617,10 +616,333 @@ canvas#bc { width: 100%; display: block; }
 ══════════════════════════════ */
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 .hidden { display: none !important; }
+
+
+/* ════════════════════════════════════════
+   WELCOME SCREEN
+════════════════════════════════════════ */
+#welcome-screen {
+  position: fixed; inset: 0; z-index: 1000;
+  background: var(--ink);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 32px 28px;
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+}
+#welcome-screen.hiding {
+  opacity: 0; transform: scale(1.04); pointer-events: none;
+}
+.wc-bg {
+  position: absolute; inset: 0; overflow: hidden;
+}
+.wc-bg img {
+  width: 100%; height: 100%; object-fit: cover;
+  opacity: 0.2; filter: grayscale(30%);
+}
+.wc-bg-grad {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(17,17,16,0.4) 0%, rgba(17,17,16,0.85) 60%, rgba(17,17,16,0.98) 100%);
+}
+.wc-content {
+  position: relative; z-index: 2; width: 100%; max-width: 380px;
+  display: flex; flex-direction: column; align-items: flex-start;
+}
+.wc-time {
+  font-size: 9px; font-family: 'DM Mono', monospace; color: rgba(255,255,255,0.4);
+  letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 20px;
+}
+.wc-greeting {
+  font-family: 'Bebas Neue', sans-serif; font-size: clamp(42px,11vw,58px);
+  color: #fff; line-height: 0.9; letter-spacing: 0.02em; margin-bottom: 6px;
+}
+.wc-greeting em { color: var(--gold-l); font-style: normal; display: block; }
+.wc-sub {
+  font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.6;
+  margin-bottom: 32px; max-width: 280px;
+}
+.wc-quote {
+  background: rgba(255,255,255,0.06); border-left: 3px solid var(--gold);
+  padding: 12px 16px; border-radius: 0 8px 8px 0;
+  margin-bottom: 32px; width: 100%;
+}
+.wc-quote-text {
+  font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.6;
+  font-style: italic;
+}
+.wc-quote-author {
+  font-size: 9px; font-family: 'DM Mono', monospace; color: rgba(255,255,255,0.35);
+  letter-spacing: 0.12em; text-transform: uppercase; margin-top: 6px;
+}
+.wc-stats-row {
+  display: flex; gap: 12px; margin-bottom: 28px; width: 100%;
+}
+.wc-stat {
+  flex: 1; background: rgba(255,255,255,0.07); border-radius: 8px;
+  padding: 12px 10px; text-align: center;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.wc-stat-val {
+  font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: #fff; line-height: 1;
+}
+.wc-stat-lbl {
+  font-size: 8px; font-family: 'DM Mono', monospace;
+  color: rgba(255,255,255,0.35); letter-spacing: 0.1em;
+  text-transform: uppercase; margin-top: 3px;
+}
+.wc-enter-btn {
+  width: 100%; padding: 16px; background: var(--gold);
+  border: none; border-radius: 8px; color: var(--ink);
+  font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 0.1em;
+  cursor: pointer; transition: all 0.18s var(--ease);
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+.wc-enter-btn:hover { background: var(--gold-l); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(192,136,42,0.35); }
+.wc-enter-btn:active { transform: scale(0.98); }
+.wc-carlitos {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
+  background: rgba(255,255,255,0.06); border-radius: 10px; padding: 10px 14px;
+  border: 1px solid rgba(255,255,255,0.1); width: 100%;
+}
+.wc-carlitos-av {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), var(--rust));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0;
+}
+.wc-carlitos-msg {
+  font-size: 12px; color: rgba(255,255,255,0.75); line-height: 1.5; flex: 1;
+}
+.wc-carlitos-name {
+  font-size: 9px; font-family: 'DM Mono', monospace;
+  color: var(--gold-l); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2px;
+}
+
+/* NAME INPUT SCREEN */
+#name-screen {
+  position: fixed; inset: 0; z-index: 1001;
+  background: var(--ink);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 32px 28px;
+}
+#name-screen.hidden { display: none; }
+.ns-content { width: 100%; max-width: 340px; }
+.ns-logo { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--gold-l); letter-spacing: 0.14em; margin-bottom: 28px; }
+.ns-title { font-family: 'Bebas Neue', sans-serif; font-size: 38px; color: #fff; line-height: 0.95; letter-spacing: 0.02em; margin-bottom: 10px; }
+.ns-sub { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.6; margin-bottom: 28px; }
+.ns-inp {
+  width: 100%; background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.2); border-radius: 8px;
+  padding: 16px 18px; font-size: 18px; color: #fff;
+  font-family: 'Inter', sans-serif; font-weight: 500;
+  margin-bottom: 14px; transition: border-color 0.15s;
+}
+.ns-inp:focus { outline: none; border-color: var(--gold); }
+.ns-inp::placeholder { color: rgba(255,255,255,0.25); font-size: 15px; font-weight: 400; }
+.ns-btn {
+  width: 100%; padding: 15px; background: var(--gold);
+  border: none; border-radius: 8px; color: var(--ink);
+  font-family: 'Bebas Neue', sans-serif; font-size: 17px; letter-spacing: 0.1em;
+  cursor: pointer; transition: all 0.15s;
+}
+.ns-btn:hover { background: var(--gold-l); }
+
+/* ════════════════════════════════════════
+   COACH CARLITOS CHAT
+════════════════════════════════════════ */
+.chat-fab {
+  position: fixed;
+  bottom: calc(var(--nav-h) + 14px);
+  right: 16px;
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), #e8a020);
+  border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  box-shadow: 0 4px 18px rgba(192,136,42,0.45);
+  z-index: 100;
+  transition: all 0.22s var(--spring);
+  animation: fabIn 0.5s 1s var(--spring) both;
+}
+@keyframes fabIn { from { opacity:0; transform:scale(0) rotate(-180deg); } to { opacity:1; transform:scale(1) rotate(0); } }
+.chat-fab:hover { transform: scale(1.08); box-shadow: 0 6px 24px rgba(192,136,42,0.55); }
+.chat-fab:active { transform: scale(0.94); }
+.chat-fab .fab-badge {
+  position: absolute; top: -2px; right: -2px;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--rust); border: 2px solid var(--bg);
+  display: none;
+}
+.chat-fab .fab-badge.show { display: block; }
+
+/* Chat panel */
+#chat-panel {
+  position: fixed; inset: 0; z-index: 600;
+  display: flex; flex-direction: column;
+  transform: translateY(100%);
+  transition: transform 0.35s var(--ease);
+  max-width: 480px; margin: 0 auto;
+}
+#chat-panel.open { transform: translateY(0); }
+.chat-header {
+  background: var(--ink); padding: 14px 18px;
+  display: flex; align-items: center; gap: 12px;
+  flex-shrink: 0;
+  padding-top: max(14px, env(safe-area-inset-top));
+}
+.chat-av {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), var(--rust));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.chat-info { flex: 1; }
+.chat-name { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: #fff; letter-spacing: 0.05em; line-height: 1; }
+.chat-status { font-size: 9px; font-family: 'DM Mono', monospace; color: rgba(255,255,255,0.4); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2px; }
+.chat-close { width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.1); border: none; color: rgba(255,255,255,0.6); font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+.chat-close:hover { background: rgba(255,255,255,0.18); color: #fff; }
+.chat-messages {
+  flex: 1; overflow-y: auto; padding: 16px 16px 8px;
+  background: var(--bg); display: flex; flex-direction: column; gap: 10px;
+}
+.chat-messages::-webkit-scrollbar { display: none; }
+.msg { display: flex; gap: 8px; animation: msgIn 0.25s var(--spring) both; }
+@keyframes msgIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+.msg.user { flex-direction: row-reverse; }
+.msg-av {
+  width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--gold), var(--rust));
+  display: flex; align-items: center; justify-content: center; font-size: 12px;
+  margin-top: 2px;
+}
+.msg.user .msg-av { background: var(--bg4); }
+.msg-bubble {
+  max-width: 78%; padding: 10px 13px; border-radius: 14px;
+  font-size: 13px; line-height: 1.55; color: var(--ink);
+  background: var(--bg2); border: 1px solid var(--border);
+}
+.msg.user .msg-bubble { background: var(--ink); color: #fff; border-color: var(--ink); border-radius: 14px 14px 4px 14px; }
+.msg.coach .msg-bubble { border-radius: 4px 14px 14px 14px; }
+.msg-time { font-size: 9px; color: var(--ink4); margin-top: 3px; font-family: 'DM Mono', monospace; text-align: right; }
+.msg.coach .msg-time { text-align: left; }
+
+/* typing indicator */
+.typing-bubble { display: flex; align-items: center; gap: 4px; padding: 12px 14px; }
+.typing-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ink3); animation: typingAnim 1.2s infinite; }
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typingAnim { 0%,60%,100% { transform:translateY(0); opacity:0.4; } 30% { transform:translateY(-5px); opacity:1; } }
+
+/* quick prompts */
+.chat-quick { padding: 8px 12px; background: var(--bg); border-top: 1px solid var(--border); display: flex; gap: 6px; overflow-x: auto; flex-shrink: 0; }
+.chat-quick::-webkit-scrollbar { display: none; }
+.qprompt { padding: 5px 11px; border: 1px solid var(--border2); border-radius: 20px; font-size: 11px; color: var(--ink2); background: var(--bg2); cursor: pointer; white-space: nowrap; font-family: 'Inter', sans-serif; transition: all 0.14s; flex-shrink: 0; }
+.qprompt:hover { border-color: var(--gold); color: var(--gold); }
+
+/* input */
+.chat-input-row {
+  display: flex; align-items: flex-end; gap: 8px; padding: 10px 12px;
+  background: var(--bg2); border-top: 1px solid var(--border); flex-shrink: 0;
+  padding-bottom: max(10px, env(safe-area-inset-bottom));
+}
+.chat-inp {
+  flex: 1; background: var(--bg3); border: 1px solid var(--border2);
+  border-radius: 20px; padding: 10px 15px; font-size: 14px;
+  color: var(--ink); font-family: 'Inter', sans-serif;
+  resize: none; max-height: 100px; line-height: 1.4;
+  transition: border-color 0.14s;
+}
+.chat-inp:focus { outline: none; border-color: var(--border3); }
+.chat-inp::placeholder { color: var(--ink4); }
+.chat-send {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--gold); border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: all 0.15s var(--spring);
+}
+.chat-send:hover { background: var(--gold-l); transform: scale(1.06); }
+.chat-send:active { transform: scale(0.94); }
+.chat-send:disabled { background: var(--bg4); cursor: not-allowed; transform: none; }
+.chat-send svg { display: block; }
+
 </style>
 </head>
 <body>
 <div id="app">
+
+<!-- ════ NAME SCREEN ════ -->
+<div id="name-screen" class="hidden">
+  <div class="ns-content">
+    <div class="ns-logo">ENTRENO</div>
+    <div class="ns-title">¿CÓMO TE<br>LLAMÁS?</div>
+    <div class="ns-sub">Coach Carlitos necesita saber tu nombre para acompañarte en cada sesión.</div>
+    <input class="ns-inp" type="text" id="ns-inp" placeholder="Tu nombre..." maxlength="30" onkeydown="if(event.key==='Enter')saveNameScreen()">
+    <button class="ns-btn" onclick="saveNameScreen()">ENTRAR A ENTRENAR →</button>
+  </div>
+</div>
+
+<!-- ════ WELCOME SCREEN ════ -->
+<div id="welcome-screen" style="display:none;">
+  <div class="wc-bg">
+    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=900&q=75&auto=format&fit=crop" alt="">
+    <div class="wc-bg-grad"></div>
+  </div>
+  <div class="wc-content">
+    <div class="wc-time" id="wc-time"></div>
+    <div class="wc-greeting">
+      <span id="wc-saludo">BUENOS DÍAS</span>
+      <em id="wc-nombre">ATLETA</em>
+    </div>
+    <div class="wc-sub" id="wc-sub">Hoy es un buen día para superar tus límites.</div>
+    <div class="wc-carlitos">
+      <div class="wc-carlitos-av">💪</div>
+      <div>
+        <div class="wc-carlitos-name">Coach Carlitos</div>
+        <div class="wc-carlitos-msg" id="wc-carlitos-msg">Cargando mensaje...</div>
+      </div>
+    </div>
+    <div class="wc-stats-row" id="wc-stats"></div>
+    <button class="wc-enter-btn" onclick="enterApp()">
+      <span>VAMOS A ENTRENAR</span>
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polyline points="3,8 13,8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><polyline points="9,4 13,8 9,12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ════ CHAT FAB ════ -->
+<button class="chat-fab" id="chat-fab" onclick="openChat()" title="Coach Carlitos" style="display:none;">
+  💪
+  <div class="fab-badge" id="fab-badge"></div>
+</button>
+
+<!-- ════ CHAT PANEL ════ -->
+<div id="chat-panel">
+  <div class="chat-header">
+    <div class="chat-av">💪</div>
+    <div class="chat-info">
+      <div class="chat-name">COACH CARLITOS</div>
+      <div class="chat-status" id="chat-status">● listo para ayudarte</div>
+    </div>
+    <button class="chat-close" onclick="closeChat()">✕</button>
+  </div>
+  <div class="chat-messages" id="chat-messages"></div>
+  <div class="chat-quick" id="chat-quick">
+    <div class="qprompt" onclick="quickPrompt(this)">¿Qué entreno hoy?</div>
+    <div class="qprompt" onclick="quickPrompt(this)">¿Cómo mejorar mis elevaciones?</div>
+    <div class="qprompt" onclick="quickPrompt(this)">¿Estoy progresando bien?</div>
+    <div class="qprompt" onclick="quickPrompt(this)">Consejo para recuperarme</div>
+    <div class="qprompt" onclick="quickPrompt(this)">¿Qué como antes de entrenar?</div>
+  </div>
+  <div class="chat-input-row">
+    <textarea class="chat-inp" id="chat-inp" placeholder="Preguntale a Coach Carlitos..." rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg();}"></textarea>
+    <button class="chat-send" id="chat-send" onclick="sendMsg()">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8l11-6-4 6 4 6-11-6z" fill="white"/></svg>
+    </button>
+  </div>
+</div>
+
+
 
   <!-- SIDEBAR MASK + SIDEBAR -->
   <div id="sb-mask" onclick="closeSB()">
@@ -1441,8 +1763,244 @@ function delFood(i){const today=dk(NOW);if(!ST.food||!ST.food[today])return;ST.f
 /* ════════════════════════════════════════
    INIT
 ════════════════════════════════════════ */
+
+/* ════════════════════════════════════════
+   WELCOME + NAME FLOW
+════════════════════════════════════════ */
+const MOTIVATIONAL_QUOTES = [
+  "El dolor de hoy es la fuerza de mañana.",
+  "No pares cuando estés cansado, para cuando hayas terminado.",
+  "Cada rep te acerca más a quien querés ser.",
+  "La disciplina vence al talento cuando el talento no se disciplina.",
+  "Tu único competidor eres vos de ayer.",
+  "El cuerpo que querés lo construís hoy, no mañana.",
+  "Más exigencia. Más foco. Más resultados.",
+  "Los grandes resultados requieren grandes ambiciones.",
+];
+const CARLITOS_GREETINGS = [
+  (n,s) => `¡${n}! ${s==='mañana'?'Arrancar temprano es ganar la mitad de la batalla':s==='tarde'?'La tarde también es tuya para conquistar':'Entrenar de noche demuestra carácter'}. Hoy nos rompemos, ¿listos?`,
+  (n,s) => `Ey ${n}! Coach Carlitos presente. ${s==='mañana'?'Con este arranque ya ganaste el día':'¿Listo para dejar todo en el gym?'}. ¡Vamos que podés!`,
+  (n) => `${n}, cada día que aparecés es un día que te acercás a tu mejor versión. ¡Hoy no es excepción, vamos con todo!`,
+  (n) => `¡Mi atleta preferido! ${n}, vine a decirte que hoy vas a superar lo de la semana pasada. Lo sé porque te conozco. ¡Fuera excusas!`,
+];
+const SUBS = [
+  "Hoy es un buen día para superar tus límites.",
+  "Consistencia + intensidad = resultados.",
+  "El gym te está esperando.",
+  "Cada sesión cuenta. Cada rep importa.",
+];
+
+function getTimeOfDay(){
+  const h=new Date().getHours();
+  if(h>=5&&h<12)return 'mañana';
+  if(h>=12&&h<20)return 'tarde';
+  return 'noche';
+}
+function getGreeting(){
+  const t=getTimeOfDay();
+  if(t==='mañana')return 'BUENOS DÍAS';
+  if(t==='tarde')return 'BUENAS TARDES';
+  return 'BUENAS NOCHES';
+}
+
+function showNameScreen(){
+  const ns=document.getElementById('name-screen');
+  ns.classList.remove('hidden');
+  setTimeout(()=>document.getElementById('ns-inp').focus(),300);
+}
+function saveNameScreen(){
+  const val=document.getElementById('ns-inp').value.trim();
+  if(!val)return;
+  ST.name=val; save();
+  document.getElementById('name-screen').classList.add('hidden');
+  showWelcome();
+}
+
+function showWelcome(){
+  const ws=document.getElementById('welcome-screen');
+  ws.style.display='flex';
+  const name=(ST.name||'ATLETA').toUpperCase();
+  const tod=getTimeOfDay();
+  const now=new Date();
+  document.getElementById('wc-time').textContent=
+    now.toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long'}).toUpperCase();
+  document.getElementById('wc-saludo').textContent=getGreeting();
+  document.getElementById('wc-nombre').textContent=name;
+  document.getElementById('wc-sub').textContent=SUBS[Math.floor(Math.random()*SUBS.length)];
+  // Carlitos greeting
+  const greetFn=CARLITOS_GREETINGS[Math.floor(Math.random()*CARLITOS_GREETINGS.length)];
+  document.getElementById('wc-carlitos-msg').textContent=greetFn(ST.name||'campeón',tod);
+  // Stats
+  const days=Object.entries(ST.days);
+  const sess=days.filter(([,d])=>d.type&&SESS[d.type]&&d.done&&Object.values(d.done).some(Boolean)).length;
+  let streak=0;const cur2=new Date(NOW);
+  for(let i=0;i<60;i++){const k2=dk(cur2);const d=ST.days[k2];if(d&&d.type&&d.type!=='rest')streak++;else if(i>0)break;cur2.setDate(cur2.getDate()-1);}
+  const todaySess=ST.days[todayKey];
+  const todayDone=todaySess&&todaySess.type&&SESS[todaySess.type]?
+    Object.values(todaySess.done||{}).filter(Boolean).length+'/'+SESS[todaySess.type].secs.flatMap(s=>s.exs).length
+    :'—';
+  document.getElementById('wc-stats').innerHTML=`
+    <div class="wc-stat"><div class="wc-stat-val">${sess}</div><div class="wc-stat-lbl">sesiones</div></div>
+    <div class="wc-stat"><div class="wc-stat-val">${streak}</div><div class="wc-stat-lbl">racha</div></div>
+    <div class="wc-stat"><div class="wc-stat-val">${todayDone}</div><div class="wc-stat-lbl">hoy</div></div>
+  `;
+}
+function enterApp(){
+  const ws=document.getElementById('welcome-screen');
+  ws.classList.add('hiding');
+  setTimeout(()=>{ws.style.display='none';ws.classList.remove('hiding');},500);
+  document.getElementById('chat-fab').style.display='flex';
+  document.getElementById('fab-badge').classList.add('show');
+  setTimeout(()=>document.getElementById('fab-badge').classList.remove('show'),4000);
+}
+
+/* ════════════════════════════════════════
+   COACH CARLITOS CHAT
+════════════════════════════════════════ */
+let chatHistory=[];
+let chatOpen=false;
+
+function openChat(){
+  document.getElementById('chat-panel').classList.add('open');
+  chatOpen=true;
+  document.getElementById('fab-badge').classList.remove('show');
+  if(chatHistory.length===0) initChat();
+  setTimeout(()=>document.getElementById('chat-inp').focus(),400);
+  scrollChat();
+}
+function closeChat(){
+  document.getElementById('chat-panel').classList.remove('open');
+  chatOpen=false;
+}
+function initChat(){
+  const name=ST.name||'campeón';
+  addCoachMsg(`¡${name}! Soy Coach Carlitos, tu entrenador personal 💪 Estoy al tanto de toda tu rutina, tus PRs y tu progreso. Preguntame lo que quieras — técnica, nutrición, planificación, lo que sea. ¡Estoy acá para que llegues al siguiente nivel!`);
+}
+function addCoachMsg(text){
+  const time=new Date().toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});
+  chatHistory.push({role:'assistant',content:text});
+  const msgs=document.getElementById('chat-messages');
+  const div=document.createElement('div');
+  div.className='msg coach';
+  div.innerHTML=`<div class="msg-av">💪</div><div><div class="msg-bubble">${text.replace(/\n/g,'<br>')}</div><div class="msg-time">${time}</div></div>`;
+  msgs.appendChild(div);
+  scrollChat();
+}
+function addUserMsg(text){
+  const time=new Date().toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'});
+  const msgs=document.getElementById('chat-messages');
+  const div=document.createElement('div');
+  div.className='msg user';
+  div.innerHTML=`<div class="msg-av" style="background:var(--bg4);font-size:14px;color:var(--ink3);">👤</div><div><div class="msg-bubble">${text}</div><div class="msg-time">${time}</div></div>`;
+  msgs.appendChild(div);
+  scrollChat();
+}
+function showTyping(){
+  const msgs=document.getElementById('chat-messages');
+  const div=document.createElement('div');
+  div.className='msg coach';div.id='typing-ind';
+  div.innerHTML=`<div class="msg-av">💪</div><div class="msg-bubble"><div class="typing-bubble"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>`;
+  msgs.appendChild(div);scrollChat();
+  document.getElementById('chat-status').textContent='● escribiendo...';
+}
+function hideTyping(){
+  const t=document.getElementById('typing-ind');if(t)t.remove();
+  document.getElementById('chat-status').textContent='● listo para ayudarte';
+}
+function scrollChat(){
+  const msgs=document.getElementById('chat-messages');
+  setTimeout(()=>msgs.scrollTop=msgs.scrollHeight,50);
+}
+function quickPrompt(el){
+  document.getElementById('chat-inp').value=el.textContent;
+  sendMsg();
+}
+
+function buildContext(){
+  // Build a rich context string about the user's data
+  const name=ST.name||'atleta';
+  const days=Object.entries(ST.days);
+  const sess=days.filter(([,d])=>d.type&&SESS[d.type]&&d.done&&Object.values(d.done).some(Boolean)).length;
+  let streak=0;const cur2=new Date(NOW);
+  for(let i=0;i<60;i++){const k2=dk(cur2);const d=ST.days[k2];if(d&&d.type&&d.type!=='rest')streak++;else if(i>0)break;cur2.setDate(cur2.getDate()-1);}
+  // PRs
+  const prList=[];
+  const eMap={};
+  days.forEach(([,d])=>{if(!d.type||!SESS[d.type])return;SESS[d.type].secs.flatMap(s=>s.exs).forEach(ex=>{const l=(d.logs||{})[ex.id];if(!l||!l.kg)return;if(!eMap[ex.id])eMap[ex.id]={name:ex.n,vals:[]};eMap[ex.id].vals.push(parseFloat(l.kg));});});
+  Object.values(eMap).forEach(({name:en,vals})=>{if(vals.length)prList.push(`${en}: ${Math.max(...vals)}kg`);});
+  // Today
+  const today=ST.days[todayKey];
+  const todayStr=today?`Hoy asignó: ${today.type==='run'?'Running':today.type==='rest'?'Descanso':SESS[today.type]?.lbl||today.type}`:'Hoy sin sesión asignada';
+  // Sleep & food
+  const sleepToday=ST.sleep&&ST.sleep[todayKey]?ST.sleep[todayKey]+' hs':'sin registro';
+  const foodToday=ST.food&&ST.food[todayKey]?ST.food[todayKey].reduce((s,f)=>s+f.cal,0)+' kcal':'sin registro';
+  return `CONTEXTO DEL ATLETA:
+Nombre: ${name}
+Sesiones completadas: ${sess}
+Racha actual: ${streak} días
+${todayStr}
+Sueño hoy: ${sleepToday}
+Calorías hoy: ${foodToday}
+PRs registrados: ${prList.length?prList.join(', '):'aún sin datos'}
+Ciclo de entrenamiento: ${ST.cycle||'3+1'}
+Rutina: 4 días (A: Espalda+Hombro, B: Pecho+Hombro, C: Posterior+Estabilidad, D: Upper Estético) + Running`;
+}
+
+async function sendMsg(){
+  const inp=document.getElementById('chat-inp');
+  const text=inp.value.trim();
+  if(!text)return;
+  inp.value='';inp.style.height='';
+  addUserMsg(text);
+  chatHistory.push({role:'user',content:text});
+  document.getElementById('chat-send').disabled=true;
+  showTyping();
+  const ctx=buildContext();
+  const systemPrompt=`Sos Coach Carlitos, un entrenador personal motivador y energético que habla en español rioplatense (vos, che, etc.). Tenés personalidad cálida pero exigente — empujás al atleta a dar lo mejor, lo felicitás cuando progresa, lo desafiás cuando puede más.
+
+${ctx}
+
+Respondé siempre en base al contexto del atleta. Sé específico con su rutina y datos cuando sea relevante. Usá emojis con moderación. Respuestas concisas pero impactantes — máximo 3-4 párrafos. No inventes datos que no tenés.`;
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:600,
+        system:systemPrompt,
+        messages:chatHistory.slice(-10)
+      })
+    });
+    const data=await res.json();
+    hideTyping();
+    const reply=data.content&&data.content[0]?data.content[0].text:'Lo siento, no pude procesar tu mensaje. ¡Intentá de nuevo!';
+    addCoachMsg(reply);
+  }catch(e){
+    hideTyping();
+    addCoachMsg('¡Hubo un problema de conexión! Pero no te frenes — mientras tanto, seguí con el plan de hoy. 💪');
+  }
+  document.getElementById('chat-send').disabled=false;
+  chatHistory=chatHistory.slice(-20); // keep last 20 messages
+}
+
+/* Auto-resize textarea */
+document.addEventListener('DOMContentLoaded',()=>{
+  const inp=document.getElementById('chat-inp');
+  if(inp){inp.addEventListener('input',()=>{inp.style.height='';inp.style.height=Math.min(inp.scrollHeight,100)+'px';});}
+});
+
+/* ════════════════════════════════════════
+   INIT FLOW
+════════════════════════════════════════ */
+(function initFlow(){
+  if(!ST.name){
+    showNameScreen();
+  } else {
+    showWelcome();
+  }
+})();
+
 buildWeek();
 buildPanel();
 </script>
-</body>
-</html>
